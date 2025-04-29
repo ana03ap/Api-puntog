@@ -9,6 +9,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Simulación de base de datos en memoria con tus eventos reales
+
+let eventsVersion = 1; // Puedes empezar en 1
+
 let events = [
   {
       id: 1,
@@ -503,6 +506,12 @@ app.post('/feedback/:id', (req, res) => {
     res.status(404).json({ error: "Event not found." });
   }
 });
+
+// Endpoint para obtener la versión de eventos
+app.get('/events/version', (req, res) => {
+  res.json({ version: eventsVersion });
+});
+
 
 // Iniciar servidor
 app.listen(port, () => {
