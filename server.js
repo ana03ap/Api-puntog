@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 
 
-let eventsVersion = 2; // Puedes empezar en 1
+let eventsVersion = 3; // Puedes empezar en 1
 
 let events = [
   {
