@@ -2,7 +2,7 @@
   "name": "conference-api",
   "version": "1.0.0",
   "description": "Mini API for Conference Management App",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
