@@ -1,20 +1,65 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-  id: Number,
-  title: String,
-  location: String,
-  details: String,
-  participants: Number,
-  availableSpots: Number,
-  date: String,
-  path: String,
-  type: String,
+  title: {
+    type: String,
+    required: true, 
+    trim: true,
+    validate: {
+      validator: (value) => value.length > 0,
+      message: "Title cannot be an empty string."
+    }
+  },
+  location: {
+    type: String,
+    required: true,
+    trim: true,
+    validate: {
+      validator: (value) => value.length > 0,
+      message: "Location cannot be an empty string."
+    }
+  },
+  details: {
+    type: String,
+    required: true,
+    trim: true,
+    validate: {
+      validator: (value) => value.length > 0,
+      message: "Details cannot be an empty string."
+    }
+  },
+  participants: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: (value) => value.length > 0,
+      message: "Details cannot be an empty string."
+    }
+  },
+  availableSpots: {
+    type: Number,
+    default: 0
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  path: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    required: true
+  },
   isJoined: {
     type: Boolean,
     default: false
   },
-  ratings: [Number]
+  ratings: {
+    type: [Number],
+    default: []
+  }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
