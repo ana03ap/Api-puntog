@@ -22,6 +22,20 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
+// funcion para aumentar en 1 la version
+
+async function incrementEventsVersion() {
+  let version = await Version.findOne({ key: "eventsVersion" });
+  if (!version) {
+    version = new Version({ key: "eventsVersion", value: 1 }); 
+  } else {
+    version.value++; 
+  }
+  await version.save();
+}
+
+
+
 // get all events
 app.get("/events", async (req, res) => {
   try {
@@ -31,6 +45,24 @@ app.get("/events", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch events" });
   }
 });
+
+
+//get event version
+
+app.get("/events/version", async (req, res) => {
+  try {
+    let version = await Version.findOne({ key: "eventsVersion" });
+    if (!version) {
+      version = new Version({ key: "eventsVersion", value: 1 });
+      await version.save();
+    }
+    res.json({ version: version.value });
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving version" });
+  }
+});
+
+
 
 // get event by id
 app.get("/events/:id", async (req, res) => {
@@ -85,12 +117,7 @@ app.put("/events/:id", async (req, res) => {
     );
 
     // Update the events version
-    let version = await Version.findOne({ key: "eventsVersion" });
-    if (!version) {
-      version = new Version({ key: "eventsVersion", value: 3 });
-    }
-    version.value++;
-    await version.save();
+     await incrementEventsVersion();
     console.log(updatedEvent)
     res.status(200).json(updatedEvent);
   } catch (error) {
@@ -99,6 +126,7 @@ app.put("/events/:id", async (req, res) => {
       .json({ error: `Failed to update event with id=${req.params.id}` });
   }
 });
+
 
 // delete event
 app.delete("/events/:id", async (req, res) => {
@@ -109,12 +137,7 @@ app.delete("/events/:id", async (req, res) => {
     }
 
     // Update the events version
-    let version = await Version.findOne({ key: "eventsVersion" });
-    if (!version) {
-      version = new Version({ key: "eventsVersion", value: 3 });
-    }
-    version.value++;
-    await version.save();
+    await incrementEventsVersion();
 
     res.status(200).json({ message: "Event deleted successfully" });
   } catch (error) {
@@ -163,31 +186,16 @@ app.post("/events", async (req, res) => {
     const newEvent = new Event(req.body);
     await newEvent.save();
 
-    let version = await Version.findOne({ key: "eventsVersion" });
-    if (!version) {
-      version = new Version({ key: "eventsVersion", value: 3 });
-    }
-    version.value++;
-    await version.save();
-
+    
+    await incrementEventsVersion();
+    
     res.status(200).json(newEvent);
   } catch (error) {
     res.status(400).json({ error: "Error creating event" });
   }
 });
 
-app.get("/events/version", async (req, res) => {
-  try {
-    let version = await Version.findOne({ key: "eventsVersion" });
-    if (!version) {
-      version = new Version({ key: "eventsVersion", value: 3 });
-      await version.save();
-    }
-    res.json({ version: version.value });
-  } catch (error) {
-    res.status(500).json({ error: "Error retrieving version" });
-  }
-});
+
 
 app.get("/events/type/:name", async (req, res) => {
   try {
