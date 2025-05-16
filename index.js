@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Event = require("./models/Event");
 const Version = require("./models/Version");
+const Category = require("./models/Category");
+const AvailableIcon = require("./models/AvailableIcons");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,6 +22,7 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
+// get all events
 app.get("/events", async (req, res) => {
   try {
     const events = await Event.find();
@@ -29,6 +32,7 @@ app.get("/events", async (req, res) => {
   }
 });
 
+// get event by id
 app.get("/events/:id", async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
@@ -40,6 +44,7 @@ app.get("/events/:id", async (req, res) => {
   }
 });
 
+// update event
 app.put("/events/:id", async (req, res) => {
   try {
     const eventId = req.params.id;
@@ -68,9 +73,6 @@ app.put("/events/:id", async (req, res) => {
       diff.availableSpots = diff.participants - event.availableSpots;
     }
 
-    console.log("updating.");
-    console.log(diff)
-
     // Update
     const updatedEvent = await Event.findByIdAndUpdate(
       eventId,
@@ -89,7 +91,7 @@ app.put("/events/:id", async (req, res) => {
     }
     version.value++;
     await version.save();
-
+    console.log(updatedEvent)
     res.status(200).json(updatedEvent);
   } catch (error) {
     res
@@ -98,6 +100,7 @@ app.put("/events/:id", async (req, res) => {
   }
 });
 
+// delete event
 app.delete("/events/:id", async (req, res) => {
   try {
     const result = await Event.findByIdAndDelete(req.params.id);
@@ -154,6 +157,7 @@ app.post("/feedback/:id", async (req, res) => {
   }
 });
 
+// new event
 app.post("/events", async (req, res) => {
   try {
     const newEvent = new Event(req.body);
@@ -191,6 +195,97 @@ app.get("/events/type/:name", async (req, res) => {
     res.status(200).json(events);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch events by type" });
+  }
+});
+
+///////////////////////////////////////////////////
+// get all categories
+app.get("/categories", async (req, res) => {
+  try {
+    const results = await Category.find();
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
+
+// new category
+app.post("/categories", async (req, res) => {
+  try {
+    const newCat = new Category(req.body);
+    await newCat.save();
+    res.status(200).json(newCat);
+  } catch (error) {
+    res.status(400).json({ error: "Error creating category" });
+  }
+});
+
+// update category
+app.put("/categories/:id", async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const updatedData = req.body;
+
+    // Find and update the category
+    const category = await Category.findById(categoryId);
+    if (!category) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    // Update
+    const updatedCat = await Category.findByIdAndUpdate(
+      categoryId,
+      Object.fromEntries(
+        Object.entries(updatedData).filter(
+          ([key, value]) => category[key] !== value
+        )
+      ),
+      { new: true }
+    );
+
+    res.status(200).json(updatedCat);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `Failed to update category with id = ${req.params.id}` });
+  }
+});
+
+// delete category
+app.delete("/categories/:id", async (req, res) => {
+  try {
+    const result = await Category.findByIdAndDelete(req.params.id);
+    if (!result) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    res.status(200).json({ message: "Category deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `Failed to delete category with id = ${req.params.id}` });
+  }
+});
+
+
+// new icon
+app.post("/icons", async (req, res) => {
+  try {
+    const newicon = new AvailableIcon(req.body);
+    await newicon.save();
+    res.status(200).json(newicon);
+  } catch (error) {
+    res.status(400).json({ error: "Error adding icon" });
+  }
+});
+
+// get icons
+app.get("/icons", async (req, res) => {
+  try {
+    const results = await AvailableIcon.find();
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(400).json({ error: "Error fetching icons" });
   }
 });
 
