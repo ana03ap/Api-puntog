@@ -32,8 +32,8 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
     validate: {
-      validator: (value) => value.length > 0,
-      message: "Details cannot be an empty string."
+      validator: (value) => value.toString().length > 0,
+      message: "Participants cannot be an empty string."
     }
   },
   availableSpots: {

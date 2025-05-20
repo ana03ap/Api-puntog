@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const Event = require("./models/Event");
 const Version = require("./models/Version");
 const Category = require("./models/Category");
-const AvailableIcon = require("./models/AvailableIcons");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -146,6 +145,10 @@ app.post("/feedback/:id", async (req, res) => {
 
     if (!event) return res.status(404).json({ error: "Event not found" });
 
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({ error: "Rating must be between 1 and 5" });
+    }
+    
     event.ratings.push(rating);
     await event.save();
 
@@ -153,7 +156,9 @@ app.post("/feedback/:id", async (req, res) => {
       .status(200)
       .json({ message: "Rating submitted!", ratings: event.ratings });
   } catch (error) {
-    res.status(500).json({ error: "Error submitting rating" });
+    console.log(error)
+
+    res.status(500).json({ error: error.message });
   }
 });
 
