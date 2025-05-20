@@ -45,9 +45,7 @@ app.get("/events", async (req, res) => {
   }
 });
 
-
 //get event version
-
 app.get("/events/version", async (req, res) => {
   try {
     let version = await Version.findOne({ key: "eventsVersion" });
@@ -60,8 +58,6 @@ app.get("/events/version", async (req, res) => {
     res.status(500).json({ error: "Error retrieving version" });
   }
 });
-
-
 
 // get event by id
 app.get("/events/:id", async (req, res) => {
@@ -116,8 +112,8 @@ app.put("/events/:id", async (req, res) => {
     );
 
     // Update the events version
-     await incrementEventsVersion();
-    console.log(updatedEvent)
+    await incrementEventsVersion();
+     
     res.status(200).json(updatedEvent);
   } catch (error) {
     res
@@ -152,6 +148,9 @@ app.post("/subscribe/:id", async (req, res) => {
     if (event && event.availableSpots > 0) {
       event.availableSpots--;
       await event.save();
+
+      await incrementEventsVersion();
+
       res.status(200).json({ message: "Successfully subscribed!", event });
     } else {
       res.status(400).json({ error: "No spots available or event not found." });
@@ -175,6 +174,8 @@ app.post("/feedback/:id", async (req, res) => {
     event.ratings.push(rating);
     await event.save();
 
+    await incrementEventsVersion();
+
     res
       .status(200)
       .json({ message: "Rating submitted!", ratings: event.ratings });
@@ -191,7 +192,6 @@ app.post("/events", async (req, res) => {
     const newEvent = new Event(req.body);
     await newEvent.save();
 
-    
     await incrementEventsVersion();
     
     res.status(200).json(newEvent);
@@ -199,8 +199,6 @@ app.post("/events", async (req, res) => {
     res.status(400).json({ error: "Error creating event" });
   }
 });
-
-
 
 app.get("/events/type/:name", async (req, res) => {
   try {
@@ -227,6 +225,9 @@ app.post("/categories", async (req, res) => {
   try {
     const newCat = new Category(req.body);
     await newCat.save();
+
+    // TODO: await increment categories version?
+
     res.status(200).json(newCat);
   } catch (error) {
     res.status(400).json({ error: "Error creating category" });
@@ -256,6 +257,8 @@ app.put("/categories/:id", async (req, res) => {
       { new: true }
     );
 
+    // TODO: await increment categories version?
+
     res.status(200).json(updatedCat);
   } catch (error) {
     res
@@ -272,33 +275,13 @@ app.delete("/categories/:id", async (req, res) => {
       return res.status(404).json({ error: "Category not found" });
     }
 
+    // TODO: await increment categories version?
+
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error) {
     res
       .status(500)
       .json({ error: `Failed to delete category with id = ${req.params.id}` });
-  }
-});
-
-
-// new icon
-app.post("/icons", async (req, res) => {
-  try {
-    const newicon = new AvailableIcon(req.body);
-    await newicon.save();
-    res.status(200).json(newicon);
-  } catch (error) {
-    res.status(400).json({ error: "Error adding icon" });
-  }
-});
-
-// get icons
-app.get("/icons", async (req, res) => {
-  try {
-    const results = await AvailableIcon.find();
-    res.status(200).json(results);
-  } catch (error) {
-    res.status(400).json({ error: "Error fetching icons" });
   }
 });
 
