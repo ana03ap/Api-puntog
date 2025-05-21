@@ -220,6 +220,18 @@ app.get("/categories", async (req, res) => {
   }
 });
 
+// get category by id
+app.get("/categories/:id", async (req, res) => {
+  try {
+    const event = await Category.findById(req.params.id);
+    res.status(200).json(event);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `Failed to fetch category with id=${req.params.id}` });
+  }
+});
+
 // new category
 app.post("/categories", async (req, res) => {
   try {
