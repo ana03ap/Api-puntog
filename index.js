@@ -148,17 +148,15 @@ app.post("/subscribe/:id", async (req, res) => {
     if (event && event.availableSpots > 0) {
       event.availableSpots--;
       await event.save();
-
-      await incrementEventsVersion();
-
-      res.status(200).json({ message: "Successfully subscribed!", event });
-    } else {
-      res.status(400).json({ error: "No spots available or event not found." });
+      return res.status(200).json({ message: "Successfully subscribed!", event });
     }
+    return res.status(400).json({ error: "No spots available or event not found." });
   } catch (error) {
-    res.status(500).json({ error: "Error subscribing to event" });
+    console.error("🔥 Error en /subscribe/:id →", error);
+    return res.status(500).json({ error: error.message });
   }
 });
+
 
 app.post("/feedback/:id", async (req, res) => {
   try {
