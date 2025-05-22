@@ -5,7 +5,7 @@
     "details": "Why is it so hard to talk about intimacy, desire, or even basic information about our bodies? This session opens up a safe space to explore what we're rarely taught — about respect, boundaries, pleasure, and honest communication.",
     "participants": 40,
     "availableSpots": 18,
-    "date": "May 5, 2025, 11:00 AM",
+    "date": "July 5, 2025, 11:00 AM",
     "path": "lib/assets/unbound01.jpeg",
     "type": "Unbound",
     "isJoined": false
@@ -16,7 +16,7 @@
     "details": "More than a rule — consent is about understanding, respect, and presence. This workshop invites us to reflect on the messages we've received (or not} and how to build healthier dynamics through active listening and mutual care.",
     "participants": 50,
     "availableSpots": 27,
-    "date": "May 5, 2025, 3:00 PM",
+    "date": "July 5, 2025, 3:00 PM",
     "path": "lib/assets/unbound02.png",
     "type": "Unbound",
     "isJoined": false
@@ -27,7 +27,7 @@
     "details": "A session for those who've ever felt confused, curious, or uncomfortable asking questions. We'll talk about the cultural silence around sex, how it affects our relationships and self-esteem, and how to unlearn fear with empathy and facts.",
     "participants": 45,
     "availableSpots": 12,
-    "date": "May 4, 2025, 10:00 AM",
+    "date": "July 4, 2025, 10:00 AM",
     "path": "lib/assets/unbound03.jpg",
     "type": "Unbound",
     "isJoined": false
@@ -38,7 +38,7 @@
     "details": "Exploring how social expectations around gender and sexuality influence how we see ourselves and others. This is a space to reflect on identity, pressure, freedom, and what it means to connect in ways that are truly our own.",
     "participants": 50,
     "availableSpots": 20,
-    "date": "June 1, 2025, 1:00 PM",
+    "date": "November 1, 2025, 1:00 PM",
     "path": "lib/assets/unbound04.jpg",
     "type": "Unbound",
     "isJoined": false
@@ -83,7 +83,7 @@
     "details": "A conversation about desire, relationships, and the evolving nature of sexuality from childhood to old age, with a caring and sensitive approach.",
     "participants": 40,
     "availableSpots": 8,
-    "date": "May 6, 2025, 1:00 PM",
+    "date": "October 6, 2025, 1:00 PM",
     "path": "lib/assets/education04.png",
     "type": "education",
     "isJoined": false
@@ -94,7 +94,7 @@
     "details": "A workshop to highlight and celebrate pleasure in diverse bodies, breaking away from sexual ableism.",
     "participants": 35,
     "availableSpots": 5,
-    "date": "May 27, 2025, 10:00 AM",
+    "date": "December 27, 2025, 10:00 AM",
     "path": "lib/assets/education05.jpg",
     "type": "education",
     "isJoined": false
@@ -105,7 +105,7 @@
     "details": "A space for parents, caregivers, and educators to explore how to foster open and honest conversations about sexuality from an early age.",
     "participants": 45,
     "availableSpots": 12,
-    "date": "May 6, 2025, 2:00 PM",
+    "date": "July 6, 2025, 2:00 PM",
     "path": "lib/assets/education06.webp",
     "type": "education",
     "isJoined": false
@@ -117,7 +117,7 @@
     "details": "A gathering to explore how we inhabit our bodies, dismantle myths, and encourage self-care.",
     "participants": 20,
     "availableSpots": 4,
-    "date": "May 10, 2025, 3:00 PM",
+    "date": "August 10, 2025, 3:00 PM",
     "path": "lib/assets/bodyliteracy01.jpg",
     "type": "bodyliteracy"
   },
@@ -127,7 +127,7 @@
     "details": "A workshop to practice expressing emotions and needs in intimate relationships with clarity and respect.",
     "participants": 25,
     "availableSpots": 6,
-    "date": "May 11, 2025, 5:30 PM",
+    "date": "November 11, 2025, 5:30 PM",
     "path": "lib/assets/bodyliteracy02.jpg",
     "type": "bodyliteracy"
   },
@@ -137,7 +137,7 @@
     "details": "We explore how we give and receive care. A workshop centered on respect, boundaries, and honest communication.",
     "participants": 22,
     "availableSpots": 2,
-    "date": "May 12, 2025, 4:00 PM",
+    "date": "July 12, 2025, 4:00 PM",
     "path": "lib/assets/bodyliteracy03.jpg",
     "type": "bodyliteracy",
     "isJoined": false
@@ -148,7 +148,7 @@
     "details": "Guided conversations about sexuality, the body, and relationships from an educational and listening-based approach.",
     "participants": 18,
     "availableSpots": 5,
-    "date": "May 13, 2025, 6:00 PM",
+    "date": "July 13, 2025, 6:00 PM",
     "path": "lib/assets/bodyliteracy04.png",
     "type": "bodyliteracy",
     "isJoined": false
@@ -193,7 +193,7 @@
     "details": "Discover how myths and rituals from ancient cultures encoded sacred sexuality and archetypes of desire.",
     "participants": 60,
     "availableSpots": 27,
-    "date": "May 27, 2025, 11:00 AM",
+    "date": "June 27, 2025, 11:00 AM",
     "path": "lib/assets/culture04.jpg",
     "type": "culture",
     "isJoined": false
@@ -292,7 +292,7 @@
     "details": "Exploring the unique healthcare needs of transgender and non-binary individuals...",
     "participants": 50,
     "availableSpots": 21,
-    "date": "May 22, 2025, 11:00 AM",
+    "date": "July 22, 2025, 11:00 AM",
     "path": "lib/assets/identity02.png",
     "type": "identity",
     "isJoined": false
@@ -303,7 +303,7 @@
     "details": "Exploring how gender expression is represented in visual art, performance, and film...",
     "participants": 40,
     "availableSpots": 18,
-    "date": "May 22, 2025, 2:00 PM",
+    "date": "June 22, 2025, 2:00 PM",
     "path": "lib/assets/identity03.png",
     "type": "identity",
     "isJoined": false
@@ -314,7 +314,7 @@
     "details": "Exploring the importance of respecting chosen pronouns and their impact on inclusion...",
     "participants": 60,
     "availableSpots": 25,
-    "date": "April 23, 2025, 10:00 AM",
+    "date": "November 23, 2025, 10:00 AM",
     "path": "lib/assets/identity04.png",
     "type": "identity",
     "isJoined": false
@@ -325,7 +325,7 @@
     "details": "Learning inclusive language practices to create safe educational environments...",
     "participants": 50,
     "availableSpots": 20,
-    "date": "May 23, 2025, 12:00 PM",
+    "date": "November 23, 2025, 12:00 PM",
     "path": "lib/assets/identity05.jpeg",
     "type": "identity",
     "isJoined": false
@@ -336,7 +336,7 @@
     "details": "Queer and trans youth empowerment through personal stories and guided activities...",
     "participants": 45,
     "availableSpots": 13,
-    "date": "April 23, 2025, 3:00 PM",
+    "date": "December 23, 2025, 3:00 PM",
     "path": "lib/assets/identity06.png",
     "type": "identity",
     "isJoined": false
@@ -369,7 +369,7 @@
     "details": "Debunking misconceptions about emergency contraception and discussing accessibility...",
     "participants": 45,
     "availableSpots": 19,
-    "date": "May 19, 2025, 2:00 PM",
+    "date": "December 19, 2025, 2:00 PM",
     "path": "lib/assets/sexhealth03.png",
     "type": "sexHealth",
     "isJoined": false
@@ -380,7 +380,7 @@
     "details": "Analyzing how menstrual poverty affects global communities and what public policies exist...",
     "participants": 40,
     "availableSpots": 12,
-    "date": "May 20, 2025, 9:00 AM",
+    "date": "December 20, 2025, 9:00 AM",
     "path": "lib/assets/sexhealth04.png",
     "type": "sexHealth",
     "isJoined": false
