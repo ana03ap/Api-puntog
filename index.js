@@ -148,11 +148,38 @@ app.post("/subscribe/:id", async (req, res) => {
     if (event && event.availableSpots > 0) {
       event.availableSpots--;
       await event.save();
+   await incrementEventsVersion();
       return res.status(200).json({ message: "Successfully subscribed!", event });
     }
     return res.status(400).json({ error: "No spots available or event not found." });
   } catch (error) {
     console.error("🔥 Error en /subscribe/:id →", error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /unsubscribe/:id —> Deshace una suscripción (suma 1 a availableSpots)
+app.post("/unsubscribe/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!/^[0-9a-fA-F]{24}$/.test(id)) {
+      return res.status(400).json({ error: "ID inválido" });
+    }
+    const event = await Event.findById(id);
+    if (!event) {
+      return res.status(404).json({ error: "Evento no encontrado" });
+    }
+
+ 
+    event.availableSpots++;
+    await event.save();
+    await incrementEventsVersion();
+    return res
+      .status(200)
+      .json({ message: "Unsubscribed successfully!", event });
+  } catch (error) {
+    console.error("🔥 Error en /unsubscribe/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
