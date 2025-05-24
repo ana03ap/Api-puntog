@@ -191,7 +191,7 @@ app.post("/addrating/:id", async (req, res) => {
     const { id } = req.params;
     const { rating } = req.body;
 
-    // 1) Validar ID Mongo
+    // Validar ID Mongo
     if (!/^[0-9a-fA-F]{24}$/.test(id)) {
       return res.status(400).json({ error: "ID inválido" });
     }
@@ -207,25 +207,48 @@ app.post("/addrating/:id", async (req, res) => {
       return res.status(400).json({ error: "Rating debe estar entre 1 y 5" });
     }
 
-    // 3) Buscar el evento
     const event = await Event.findById(id);
     if (!event) {
       return res.status(404).json({ error: "Evento no encontrado" });
     }
 
-    // 4) Push al array y save
     event.ratings.push(rating);
     await event.save();
 
-    // 5) Actualizar versión
     await incrementEventsVersion();
 
-    // 6) Responder con lista de ratings actualizada
     return res
       .status(200)
       .json({ message: "Rating enviado correctamente", ratings: event.ratings });
   } catch (error) {
     console.error("🔥 Error en /addrating/:id →", error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+
+// POST /comment/:id —> Añade un mensaje anónimo
+app.post("/comment/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { comment } = req.body;
+    if (!/^[0-9a-fA-F]{24}$/.test(id)) 
+      return res.status(400).json({ error: "ID inválido" });
+    if (!comment || typeof comment !== "string") 
+      return res.status(400).json({ error: "Comentario inválido" });
+
+    const event = await Event.findById(id);
+    if (!event) return res.status(404).json({ error: "Evento no encontrado" });
+
+    event.comments.push(comment);
+    await event.save();
+    await incrementEventsVersion();
+
+    return res
+      .status(200)
+      .json({ message: "Comentario agregado", comments: event.comments });
+  } catch (error) {
+    console.error("🔥 Error en /comment/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
