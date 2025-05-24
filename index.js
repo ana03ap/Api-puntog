@@ -231,31 +231,6 @@ app.post("/addrating/:id", async (req, res) => {
 });
 
 
-app.post("/feedback/:id", async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    const { rating } = req.body;
-
-    if (!event) return res.status(404).json({ error: "Event not found" });
-
-    if (rating < 1 || rating > 5) {
-      return res.status(400).json({ error: "Rating must be between 1 and 5" });
-    }
-    
-    event.ratings.push(rating);
-    await event.save();
-
-    await incrementEventsVersion();
-
-    res
-      .status(200)
-      .json({ message: "Rating submitted!", ratings: event.ratings });
-  } catch (error) {
-    console.log(error)
-
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // new event
 app.post("/events", async (req, res) => {
