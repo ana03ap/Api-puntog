@@ -59,7 +59,12 @@ const eventSchema = new mongoose.Schema({
   ratings: {
     type: [Number],
     default: []
+  },
+  comments: {
+    type: [String],
+    default: []
   }
+
 });
 
 module.exports = mongoose.model('Event', eventSchema);
