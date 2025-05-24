@@ -185,6 +185,52 @@ app.post("/unsubscribe/:id", async (req, res) => {
 });
 
 
+// POST /addrating/:id —> Añade un rating a un evento
+app.post("/addrating/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { rating } = req.body;
+
+    // 1) Validar ID Mongo
+    if (!/^[0-9a-fA-F]{24}$/.test(id)) {
+      return res.status(400).json({ error: "ID inválido" });
+    }
+
+    // 2) Validar rating presente y en rango
+    if (rating == null) {
+      return res.status(400).json({ error: "Falta el campo rating" });
+    }
+    if (typeof rating !== "number") {
+      return res.status(400).json({ error: "Rating debe ser un número" });
+    }
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({ error: "Rating debe estar entre 1 y 5" });
+    }
+
+    // 3) Buscar el evento
+    const event = await Event.findById(id);
+    if (!event) {
+      return res.status(404).json({ error: "Evento no encontrado" });
+    }
+
+    // 4) Push al array y save
+    event.ratings.push(rating);
+    await event.save();
+
+    // 5) Actualizar versión
+    await incrementEventsVersion();
+
+    // 6) Responder con lista de ratings actualizada
+    return res
+      .status(200)
+      .json({ message: "Rating enviado correctamente", ratings: event.ratings });
+  } catch (error) {
+    console.error("🔥 Error en /addrating/:id →", error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+
 app.post("/feedback/:id", async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
