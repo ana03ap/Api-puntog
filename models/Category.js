@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const categorySchema = new mongoose.Schema({
   label: {
     type: String,
+    unique: true,
     required: true,
     validate: {
       validator: (value) => value.length > 0,
@@ -11,6 +12,7 @@ const categorySchema = new mongoose.Schema({
   },
   type: {
     type: String,
+    unique: true,
     required: true,
     validate: {
       validator: (value) => value.length > 0,
