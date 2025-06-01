@@ -153,7 +153,7 @@ app.post("/subscribe/:id", async (req, res) => {
     }
     return res.status(400).json({ error: "No spots available or event not found." });
   } catch (error) {
-    console.error("🔥 Error en /subscribe/:id →", error);
+    console.error("Error en /subscribe/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
@@ -179,7 +179,7 @@ app.post("/unsubscribe/:id", async (req, res) => {
       .status(200)
       .json({ message: "Unsubscribed successfully!", event });
   } catch (error) {
-    console.error("🔥 Error en /unsubscribe/:id →", error);
+    console.error("Error en /unsubscribe/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
@@ -221,7 +221,7 @@ app.post("/addrating/:id", async (req, res) => {
       .status(200)
       .json({ message: "Rating enviado correctamente", ratings: event.ratings });
   } catch (error) {
-    console.error("🔥 Error en /addrating/:id →", error);
+    console.error("Error en /addrating/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
@@ -248,7 +248,7 @@ app.post("/comment/:id", async (req, res) => {
       .status(200)
       .json({ message: "Comentario agregado", comments: event.comments });
   } catch (error) {
-    console.error("🔥 Error en /comment/:id →", error);
+    console.error("Error en /comment/:id →", error);
     return res.status(500).json({ error: error.message });
   }
 });
@@ -368,9 +368,6 @@ app.delete("/categories/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`API listening on port ${port}`);
-});
 
 app.listen(port, () => {
   console.log(`API listening on port ${port}`);
