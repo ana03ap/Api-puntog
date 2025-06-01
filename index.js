@@ -356,7 +356,7 @@ app.delete("/categories/:id", async (req, res) => {
       return res.status(404).json({ error: "Category not found" });
     }
     const events = await Event.find({ type: category.type });
-    if (events) {
+    if (events.length > 0) {
       return res.status(404).json({ error: "Cannot delete category with events. Move events to different categories before deleting." });
     }
     await Category.findByIdAndDelete(req.params.id);
@@ -366,6 +366,10 @@ app.delete("/categories/:id", async (req, res) => {
       .status(500)
       .json({ error: `Failed to delete category with id = ${req.params.id}` });
   }
+});
+
+app.listen(port, () => {
+  console.log(`API listening on port ${port}`);
 });
 
 app.listen(port, () => {
