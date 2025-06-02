@@ -33,6 +33,15 @@ async function incrementEventsVersion() {
   await version.save();
 }
 
+async function incrementCategoryVersion() {
+  let version = await Version.findOne({ key: "categoryVersion" });
+  if (!version) {
+    version = new Version({ key: "categoryVersion", value: 1 }); 
+  } else {
+    version.value++; 
+  }
+  await version.save();
+}
 
 
 // get all events
@@ -51,6 +60,20 @@ app.get("/events/version", async (req, res) => {
     let version = await Version.findOne({ key: "eventsVersion" });
     if (!version) {
       version = new Version({ key: "eventsVersion", value: 1 });
+      await version.save();
+    }
+    res.json({ version: version.value });
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving version" });
+  }
+});
+
+//get category version
+app.get("/category/version", async (req, res) => {
+  try {
+    let version = await Version.findOne({ key: "categoryVersion" });
+    if (!version) {
+      version = new Version({ key: "categoryVersion", value: 1 });
       await version.save();
     }
     res.json({ version: version.value });
@@ -307,7 +330,7 @@ app.post("/categories", async (req, res) => {
     const newCat = new Category(req.body);
     await newCat.save();
 
-    // TODO: await increment categories version?
+    await incrementCategoryVersion();
 
     res.status(200).json(newCat);
   } catch (error) {
@@ -338,7 +361,7 @@ app.put("/categories/:id", async (req, res) => {
       { new: true }
     );
 
-    // TODO: await increment categories version?
+    await incrementCategoryVersion();
 
     res.status(200).json(updatedCat);
   } catch (error) {
@@ -360,6 +383,9 @@ app.delete("/categories/:id", async (req, res) => {
       return res.status(404).json({ error: "Cannot delete category with events. Move events to different categories before deleting." });
     }
     await Category.findByIdAndDelete(req.params.id);
+
+    await incrementCategoryVersion();
+    
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error) {
     res
