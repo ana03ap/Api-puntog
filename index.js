@@ -69,7 +69,7 @@ app.get("/events/version", async (req, res) => {
 });
 
 //get category version
-app.get("/category/version", async (req, res) => {
+app.get("/categories/version", async (req, res) => {
   try {
     let version = await Version.findOne({ key: "categoryVersion" });
     if (!version) {
