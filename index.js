@@ -154,7 +154,7 @@ app.delete("/events/:id", async (req, res) => {
       return res.status(404).json({ error: "Event not found" });
     }
 
-    // Update the events version
+    // Update the events version on delete
     await incrementEventsVersion();
 
     res.status(200).json({ message: "Event deleted successfully" });
@@ -171,7 +171,7 @@ app.post("/subscribe/:id", async (req, res) => {
     if (event && event.availableSpots > 0) {
       event.availableSpots--;
       await event.save();
-   await incrementEventsVersion();
+      //await incrementEventsVersion();
       return res.status(200).json({ message: "Successfully subscribed!", event });
     }
     return res.status(400).json({ error: "No spots available or event not found." });
@@ -197,7 +197,7 @@ app.post("/unsubscribe/:id", async (req, res) => {
  
     event.availableSpots++;
     await event.save();
-    await incrementEventsVersion();
+    //await incrementEventsVersion();
     return res
       .status(200)
       .json({ message: "Unsubscribed successfully!", event });
@@ -265,7 +265,6 @@ app.post("/comment/:id", async (req, res) => {
 
     event.comments.push(comment);
     await event.save();
-    await incrementEventsVersion();
 
     return res
       .status(200)
